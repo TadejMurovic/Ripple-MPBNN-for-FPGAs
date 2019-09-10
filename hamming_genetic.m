@@ -18,10 +18,9 @@ function ordered = hamming_genetic(set, iter_nb, pop_nb)
            
     global_min   = Inf;
     total_dist   = zeros(1,pop_nb);
-    dist_history = zeros(1,iter_nb);
+    dist_history = zeros(1,iter_nb+1);
     tmp_pop = zeros(4,nf);
-    new_pop = zeros(pop_nb,nf);
-
+    new_pop = zeros(pop_nb,nf); 
     
     figure(1000);
     for iter = 1:iter_nb
@@ -32,6 +31,9 @@ function ordered = hamming_genetic(set, iter_nb, pop_nb)
                 d = d + dist(pop(p,k-1),pop(p,k));
             end
             total_dist(p) = d;
+            if (p == 1 && iter == 1)
+               dist_history(1) = d; 
+            end
         end
         
         % Find the Best Route in the Population
@@ -39,7 +41,7 @@ function ordered = hamming_genetic(set, iter_nb, pop_nb)
         if iter == 1
             best_first = sum(dist(1,:));
         end
-        dist_history(iter) = min_dist;
+        dist_history(iter+1) = min_dist;
         if min_dist < global_min 
             global_min = min_dist;
             optRoute = pop(index,:);
@@ -50,9 +52,10 @@ function ordered = hamming_genetic(set, iter_nb, pop_nb)
             image(set(optRoute,:)'*100); 
             title(['Best Configuration']);
             subplot(3,1,3);
-            plot(1:iter,dist_history(1:iter),'r','linewidth',2);
-            axis([1 iter_nb 0 best_first]);
-            title(['Best: ',num2str(min_dist)]);
+            plot(1:iter+1,dist_history(1:iter+1),'r','linewidth',2);
+            axis([1 iter_nb -inf best_first]);
+            Improvement = round(100*(1-dist_history(iter+1)/dist_history(1)));
+            title(['Best Distance: ',num2str(min_dist),', Improvement: ',num2str(Improvement),'%']);
             drawnow;
         end
                        
@@ -91,9 +94,10 @@ function ordered = hamming_genetic(set, iter_nb, pop_nb)
     image(set(optRoute,:)'*100); 
     title(['Best Configuration @ Iteration:',num2str(iter),'']);
     subplot(3,1,3);
-    plot(1:iter,dist_history(1:iter),'r','linewidth',2);
-    axis([1 iter_nb 0 best_first]);
-    title(['Best: ',num2str(min_dist)]);
+    plot(1:iter+1,dist_history(1:iter+1),'r','linewidth',2);
+    axis([1 iter_nb -inf best_first]);
+    Improvement = round(100*(1-dist_history(iter+1)/dist_history(1)));
+    title(['Best Distance: ',num2str(min_dist),', Improvement: ',num2str(Improvement),'%']);
     drawnow;
     
     ordered = optRoute;
