@@ -8,7 +8,7 @@ To change the size of hidden layer and to grab the precomputed trained network p
 SEL_T = 0, creates the straight-forward combinational verilog BNN model.
 SEL_T = 1, creates the ripple architecture combinational verilog BNN model.
 
-Net_Params\ holds the traiend networks parameters.
+Net_Params\ holds the trained networks parameters.
 Verilog Models\ holds the prebuild HDL models.
 
 
