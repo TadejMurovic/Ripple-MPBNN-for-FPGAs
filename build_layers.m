@@ -15,8 +15,8 @@ for la = 0:1
         M = LT;
         sel = 0; % sel = 1 Ripple Arch; sel = 0 Straight-Forward MPBNN code generation
     end
-    pathw = strcat('C:\Users\fg7c6w\Desktop\PHD\bin_set\cybersecurity\dump_w_gen',num2str(LT),'_',num2str(la),'.txt');
-    patht = strcat('C:\Users\fg7c6w\Desktop\PHD\bin_set\cybersecurity\dump_t_gen',num2str(LT),'_',num2str(la),'.txt');
+    pathw = strcat('Net_Params\dump_w_gen',num2str(LT),'_',num2str(la),'.txt');
+    patht = strcat('Net_Params\dump_t_gen',num2str(LT),'_',num2str(la),'.txt');
 
 
 
